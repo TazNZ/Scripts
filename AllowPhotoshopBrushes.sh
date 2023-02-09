@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Author:   TazNZ - Jordan Noovao
+# Name:     AllowPhotoshopBrushes.sh
+#
+# Purpose:  This script adds the 777 permissions to the Photoshop applications folder, to help assist with 
+# standard users installing or editing their own Photoshop brushes.
+# Tested within Jamf Pro and Microsoft Intune.
+
+# Update: Adobe Creative Cloud may have resolve this in recent versions...
+
+chmod 777 /Applications/Adobe\ Photoshop\ 2020/Presets
+
+exit 0
