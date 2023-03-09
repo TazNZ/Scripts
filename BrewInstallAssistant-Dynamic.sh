@@ -15,7 +15,7 @@
 
 title="Brew Install Assistant "
 message="Please type the Homebrew package you wish to install into the text field below. \n\nGo to https://formulae.brew.sh/ to find the name of the package you want to install. \n\nYou must enter the package name exactly from the Install comammnd e.g. $ brew install docker"
-icon="https://brew.sh/assets/img/homebrew.svg"
+icon="https://brew.sh/assets/img/homebrew-256x256.png"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Dialog Settings and Features
@@ -89,7 +89,7 @@ dialogCMD="$dialogApp --ontop --title \"Installing $package.\" \
 eval "$dialogCMD"
 	sudo -H -iu ${ConsoleUser} ${brew} install ${package}
     dialogCMD="$dialogApp --ontop --title \"Successfully installed $package.\" \
---message \"$package is ready! You can run it. Please refer to the developers guide or recommendations on how to run these packages. Click Ok to dismiss\" \
+--message \"$package is ready! You can run it. Please refer to the developers guide or recommendations on how to run these packages. \n\ Click Ok to dismiss\" \
 --icon \"$icon\" \
 --infotext \"v1\" \
 --titlefont 'size=32' \

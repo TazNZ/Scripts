@@ -14,7 +14,7 @@
 # Brew Applications and Packages
 # This script does not currently support cask items
 # Use https://formulae.brew.sh/ as a reference to find the correct package name.
-brewApps="autoconf,bdw-gc,brotli,c-ares,ca-certificates,docker,docker-compose,gdbm,gettext,glib,gmp,gnutls,go,guile,icu4c,jpeg,jq,libevent,libffi,libidn2,libnghttp2,libpng,"
+brewApps="autoconf,bdw-gc,brotli,c-ares,ca-certificates,docker,docker-compose,gdbm,gettext,glib,gmp,gnutls,go,guile,icu4c,jpeg,jq,libevent,libffi,libidn2,libnghttp2,libpng,libslirp,libssh,libtasn1,libtool,libunistring,libusb,libuv,lima,lzo,m4,maven,mpdecimal,ncurses,nettle,node,oniguruma,openjdk,openssl@1.1,p11-kit,pcre,pixman,pkg-config,pyenv,pyenv-virtualenvwrapper,python@3.8,python@3.9,qemu,readline,snappy,sqlite,tcl-tk,unbound,vde,xz,zlib,zstd"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Dialog Title, Message and Icon
