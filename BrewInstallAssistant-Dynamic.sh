@@ -6,7 +6,8 @@
 # Purpose:  This script assists users (mainly devs) in installing Homebrew packages.
 # It is designed to be used as a Self Service option in Jamf Pro.  
 #
-#
+# This version of Brew Install Assistant is Dynamic, meaning that the user can fill in any Brew formulaes or apps.  
+# As long as it exists at https://formulae.brew.sh
 #
 ####################################################################################################
 
@@ -34,6 +35,17 @@ dialogCMD="$dialogApp --ontop --title \"$title\" \
 --position 'centre' \
 --moveable \
 --quitkey x"
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Download and install swiftDialog if it's not already installed 
+
+if [ ! -f "$dialogApp" ]; then
+    echo_logger "swiftDialog not installed"
+    dialog_latest=$( curl -sL https://api.github.com/repos/bartreardon/swiftDialog/releases/latest )
+    dialog_url=$(get_json_value "$dialog_latest" 'assets[0].browser_download_url')
+    curl -L --output "dialog.pkg" --create-dirs --output-dir "/var/tmp" "$dialog_url"
+    installer -pkg "/var/tmp/dialog.pkg" -target /
+fi
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Display Welcome Screen and capture user's interaction
@@ -65,37 +77,9 @@ fi
 
 cd /tmp/ # This is required to use sudo as another user or you get a getcwd error
 if [[ $(sudo -H -iu ${ConsoleUser} ${brew} info ${package}) != *Not\ installed* ]]; then
-dialogCMD="$dialogApp --ontop --title \"No need for $package.\" \
---message \"You already have "$package" installed! Open Terminal.app and type $package to start using it.\" \
---icon \"$icon\" \
---infotext \"v1\" \
---titlefont 'size=32' \
---messagefont 'size=18' \
---position 'centre' \
---moveable \
---quitkey x"
-eval "$dialogCMD"
-    echo "${package} is installed already. Skipping installation"
+	echo "${package} is installed already. Skipping installation"
 else
-dialogCMD="$dialogApp --ontop --title \"Installing $package.\" \
---message \"$package is on it's way to your Mac. Once downloaded and installed, you can run it using the developers recommneded methods.\" \
---icon \"$icon\" \
---infotext \"v1\" \
---titlefont 'size=32' \
---messagefont 'size=18' \
---position 'centre' \
---moveable \
---quitkey x"
-eval "$dialogCMD"
+	echo "Searching for ${package}. Attempting installation..."
 	sudo -H -iu ${ConsoleUser} ${brew} install ${package}
-    dialogCMD="$dialogApp --ontop --title \"Successfully installed $package.\" \
---message \"$package is ready! You can run it. Please refer to the developers guide or recommendations on how to run these packages. \n\ Click Ok to dismiss\" \
---icon \"$icon\" \
---infotext \"v1\" \
---titlefont 'size=32' \
---messagefont 'size=18' \
---position 'centre' \
---moveable \
---quitkey x"
-eval "$dialogCMD"
 fi
+exit 0

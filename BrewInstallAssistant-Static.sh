@@ -6,7 +6,8 @@
 # Purpose:  This script assists users (mainly devs) in installing Homebrew packages.
 # It is designed to be used as a Self Service option in Jamf Pro.  
 #
-#
+# This version of Brew Install Assistant is Static, meaning that the user can only install the Brew formulaes or apps, allowed. 
+# Check line 18
 #
 ####################################################################################################
 
@@ -41,6 +42,17 @@ dialogCMD="$dialogApp --ontop --title \"$title\" \
 --position 'centre' \
 --moveable \
 --quitkey x"
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Download and install swiftDialog if it's not already installed 
+
+if [ ! -f "$dialogApp" ]; then
+    echo_logger "swiftDialog not installed"
+    dialog_latest=$( curl -sL https://api.github.com/repos/bartreardon/swiftDialog/releases/latest )
+    dialog_url=$(get_json_value "$dialog_latest" 'assets[0].browser_download_url')
+    curl -L --output "dialog.pkg" --create-dirs --output-dir "/var/tmp" "$dialog_url"
+    installer -pkg "/var/tmp/dialog.pkg" -target /
+fi
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Display Welcome Screen and capture user's interaction
